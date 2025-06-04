@@ -13,7 +13,7 @@ gendiff
   .option('-f, --format [type]', 'output format')
   .action((filePath1, filePath2) => {
     console.log(`${parseFile(filePath1)} ${parseFile(filePath2)}`)
-    });
+  })
 
 gendiff.parse(process.argv)
 
