@@ -35,3 +35,4 @@ function difference(filePath1, filePath2) {
 }
 
 export default difference
+export { parseFile, getAbsolutePath }
