@@ -2,7 +2,7 @@ import { fileURLToPath } from 'url'
 import difference from '../parser.js'
 import fs from 'fs'
 import path from 'path'
-import jest from 'jest'
+import { expect, test, beforeAll } from '@jest/globals'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)

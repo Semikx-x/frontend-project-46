@@ -34,6 +34,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
+      - run: npx eslint .
       - run: npm test
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5

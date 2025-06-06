@@ -1,8 +1,8 @@
 {
   "name": "@hexlet/code",
-  "type": "module",
   "version": "1.0.0",
   "main": "parser.js",
+  "type": "module",
   "scripts": {
     "test": "jest"
   },
