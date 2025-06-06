@@ -13,7 +13,7 @@ function difference(filePath1, filePath2) {
   const parsedFile1 = parseFile(filePath1)
   const parsedFile2 = parseFile(filePath2)
   const allKeys = Array.from(new Set([...Object.keys(parsedFile1), ...Object.keys(parsedFile2)]))
-  const sortedKeys = allKeys.sort()
+  const sortedKeys = allKeys.sort((a, b) => a.localeCompare(b))
 
   const lines = sortedKeys.map((key) => {
     const has1 = Object.hasOwn(parsedFile1, key)
