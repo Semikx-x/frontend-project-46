@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'url'
-import difference from '../prarser.js'
+import difference from '../parser.js'
 import fs from 'fs'
 import path from 'path'
 import { expect, test, beforeAll } from 'jest'
