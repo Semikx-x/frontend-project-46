@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for parser.js</title>
+    <title>Code coverage report for diference.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="prettify.css" />
     <link rel="stylesheet" href="base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> parser.js</h1>
+        <h1><a href="index.html">All files</a> diference.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -83,46 +83,70 @@
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import fs from 'fs'
-import path from 'path'
-import yaml from 'js-yaml'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import parseFile from './parser'
 &nbsp;
-const getAbsolutePath = filePath =&gt; path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath)
+function difference(filePath1, filePath2) {
+  const parsedFile1 = parseFile(filePath1)
+  const parsedFile2 = parseFile(filePath2)
+  const allKeys = Array.from(new Set([...Object.keys(parsedFile1), ...Object.keys(parsedFile2)]))
+  const sortedKeys = allKeys.toSorted((a, b) =&gt; a.localeCompare(b))
 &nbsp;
-const parseFile = (filePath) =&gt; {
-  const format = path.extname(filePath)
-  const absolutePath = getAbsolutePath(filePath)
-  const data = fs.readFileSync(absolutePath, 'utf-8')
-  if (format === '.json') {
-    return JSON.parse(data)
-  }
-  else if (format === '.yml' || format === '.yaml') {
-    return yaml.load(data)
-  }
-  throw new Error('not supported')
+  const lines = sortedKeys.map((key) =&gt; {
+    const has1 = Object.hasOwn(parsedFile1, key)
+    const has2 = Object.hasOwn(parsedFile2, key)
+&nbsp;
+    if (!has2) {
+      return `- ${key}: ${parsedFile1[key]}`
+    }
+    if (!has1) {
+      return `+ ${key}: ${parsedFile2[key]}`
+    }
+    if (parsedFile1[key] !== parsedFile2[key]) {
+      return `- ${key}: ${parsedFile1[key]}\n+ ${key}: ${parsedFile2[key]}`
+    }
+    return `  ${key}: ${parsedFile1[key]}`
+  })
+&nbsp;
+  return `{\n${lines.join('\n')}\n}`
 }
 &nbsp;
-export default parseFile
+export default difference
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -130,7 +154,7 @@ export default parseFile
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-08T15:08:25.210Z
+                at 2025-06-08T15:08:25.196Z
             </div>
         <script src="prettify.js"></script>
         <script>
