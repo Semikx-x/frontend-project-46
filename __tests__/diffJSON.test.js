@@ -3,6 +3,7 @@ import difference from '../src/diference.js'
 import fs from 'fs'
 import path from 'path'
 import { expect, test, beforeAll } from '@jest/globals'
+import formatStylish from '../src/stylish.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -22,14 +23,14 @@ beforeAll(() => {
 })
 
 test('отличие JSON', () => {
-  const actualLines = difference(file1JSON, file2JSON).trim().split('\n')
-  const expectedLines = expected.trim().split('\n')
+  const actualLines = formatStylish(difference(file1JSON, file2JSON))
+  const expectedLines = expected
   expect(actualLines).toEqual(expectedLines)
 })
 
 test('отличиеYaml', () => {
-  const actualLines = difference(file1Yaml, file2Yml).trim().split('\n')
-  const expectedLines = expected.trim().split('\n')
+  const actualLines = formatStylish(difference(file1Yaml, file2Yml))
+  const expectedLines = expected
   expect(actualLines).toEqual(expectedLines)
 })
 
