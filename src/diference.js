@@ -1,4 +1,5 @@
 import parseFile from '../src/parser.js'
+import createFormater from '../formatters/Index.js'
 
 const isObject = val => val && typeof val === 'object' && !Array.isArray(val)
 
@@ -27,10 +28,12 @@ function buildDiff(data1, data2) {
   })
 }
 
-function difference(filePath1, filePath2) {
+function difference(filePath1, filePath2, formatName = 'stylish') {
   const parsedFile1 = parseFile(filePath1)
   const parsedFile2 = parseFile(filePath2)
-  return buildDiff(parsedFile1, parsedFile2)
+  const diff = buildDiff(parsedFile1, parsedFile2)
+  const formater = createFormater(formatName)
+  return formater(diff)
 }
 
 export default difference
