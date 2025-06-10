@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'url'
-import difference from '../src/diference.js'
+import difference from '../src/difference.js'
 import fs from 'fs'
 import path from 'path'
 import { expect, test, beforeAll } from '@jest/globals'
