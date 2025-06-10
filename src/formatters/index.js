@@ -1,6 +1,6 @@
-import formatPlain from './plain.js'
-import formatStylish from './stylish.js'
-import formatJSON from './JSON.js'
+import formatPlain from 'plain.js'
+import formatStylish from 'stylish.js'
+import formatJSON from 'JSON.js'
 
 function createFormater(formatName) {
   switch (formatName) {
