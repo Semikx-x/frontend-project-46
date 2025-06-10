@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander'
-import difference from '../src/diference.js'
+import difference from '../src/difference.js'
 
 const gendiff = new Command()
 
