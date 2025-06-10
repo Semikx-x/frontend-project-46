@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "main": "gendiff.js",
+  "main": "bin/gendiff.js",
   "type": "module",
   "scripts": {
     "test": "jest --coverage"
