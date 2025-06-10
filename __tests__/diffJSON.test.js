@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename)
 const getFixturePath = filename => path.join(__dirname, '..', '__fixtures__', filename)
 let expectedStyle
 let expectedPlain
+let expectedJson
 let file1JSON
 let file2JSON
 let file1Yaml
@@ -17,6 +18,7 @@ let file2Yml
 beforeAll(() => {
   expectedStyle = fs.readFileSync(getFixturePath('result.txt'), 'utf-8')
   expectedPlain = fs.readFileSync(getFixturePath('resultPlain.txt'), 'utf-8')
+  expectedJson = fs.readFileSync(getFixturePath('resultJson.txt'), 'utf-8')
   file1JSON = getFixturePath('file1.json')
   file2JSON = getFixturePath('file2.json')
   file1Yaml = getFixturePath('file1.yaml')
@@ -35,15 +37,27 @@ test('отличие JSON Plain', () => {
   expect(actualLines).toEqual(expectedLines)
 })
 
+test('отличие JSON Json', () => {
+  const actualLines = difference(file1JSON, file2JSON, 'json')
+  const expectedLines = expectedJson
+  expect(actualLines).toEqual(expectedLines)
+})
+
 test('отличиеYaml', () => {
   const actualLines = difference(file1Yaml, file2Yml)
   const expectedLines = expectedStyle
   expect(actualLines).toEqual(expectedLines)
 })
 
-test('отличиеYaml', () => {
+test('отличиеYaml Plain', () => {
   const actualLines = difference(file1Yaml, file2Yml, 'plain')
   const expectedLines = expectedPlain
+  expect(actualLines).toEqual(expectedLines)
+})
+
+test('отличиеYaml Json', () => {
+  const actualLines = difference(file1Yaml, file2Yml, 'json')
+  const expectedLines = expectedJson
   expect(actualLines).toEqual(expectedLines)
 })
 

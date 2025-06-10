@@ -1,5 +1,6 @@
 import formatPlain from './plain.js'
 import formatStylish from './stylish.js'
+import formatJSON from './JSON.js'
 
 function createFormater(formatName) {
   switch (formatName) {
@@ -7,6 +8,8 @@ function createFormater(formatName) {
       return formatStylish
     case 'plain':
       return formatPlain
+    case 'json':
+      return formatJSON
   }
 }
 
