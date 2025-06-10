@@ -1,5 +1,5 @@
-const formatJSON = (diff) => {
+const formatJson = (diff) => {
   return JSON.stringify(diff, null, 2)
 }
 
-export default formatJSON
+export default formatJson
