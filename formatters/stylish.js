@@ -1,4 +1,4 @@
-import { isObject } from '../src/diference.js'
+import { isObject } from '../src/difference.js'
 
 const stringify = (value, depth) => {
   if (!isObject(value)) return String(value)

@@ -1,4 +1,4 @@
-import parseFile from '../src/parser.js'
+import parseFile from './parser.js'
 import createFormater from '../formatters/Index.js'
 
 const isObject = val => val && typeof val === 'object' && !Array.isArray(val)
