@@ -2,63 +2,27 @@ import { fileURLToPath } from 'url'
 import difference from '../src/difference.js'
 import fs from 'fs'
 import path from 'path'
-import { expect, test, beforeAll } from '@jest/globals'
+import { expect, test, describe } from '@jest/globals'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const getFixturePath = filename => path.join(__dirname, '..', '__fixtures__', filename)
-let expectedStyle
-let expectedPlain
-let expectedJson
-let file1JSON
-let file2JSON
-let file1Yaml
-let file2Yml
 
-beforeAll(() => {
-  expectedStyle = fs.readFileSync(getFixturePath('result.txt'), 'utf-8')
-  expectedPlain = fs.readFileSync(getFixturePath('resultPlain.txt'), 'utf-8')
-  expectedJson = fs.readFileSync(getFixturePath('resultJson.txt'), 'utf-8')
-  file1JSON = getFixturePath('file1.json')
-  file2JSON = getFixturePath('file2.json')
-  file1Yaml = getFixturePath('file1.yaml')
-  file2Yml = getFixturePath('file2.yml')
-})
-
-test('отличие JSON', () => {
-  const actualLines = difference(file1JSON, file2JSON)
-  const expectedLines = expectedStyle
-  expect(actualLines).toEqual(expectedLines)
-})
-
-test('отличие JSON Plain', () => {
-  const actualLines = difference(file1JSON, file2JSON, 'plain')
-  const expectedLines = expectedPlain
-  expect(actualLines).toEqual(expectedLines)
-})
-
-test('отличие JSON Json', () => {
-  const actualLines = difference(file1JSON, file2JSON, 'json')
-  const expectedLines = expectedJson
-  expect(actualLines).toEqual(expectedLines)
-})
-
-test('отличиеYaml', () => {
-  const actualLines = difference(file1Yaml, file2Yml)
-  const expectedLines = expectedStyle
-  expect(actualLines).toEqual(expectedLines)
-})
-
-test('отличиеYaml Plain', () => {
-  const actualLines = difference(file1Yaml, file2Yml, 'plain')
-  const expectedLines = expectedPlain
-  expect(actualLines).toEqual(expectedLines)
-})
-
-test('отличиеYaml Json', () => {
-  const actualLines = difference(file1Yaml, file2Yml, 'json')
-  const expectedLines = expectedJson
-  expect(actualLines).toEqual(expectedLines)
+describe('diff', () => {
+  test.each([
+    { input: { filePath1: 'file1.json', filePath2: 'file2.json', format: undefined }, expected: 'result.txt' },
+    { input: { filePath1: 'file1.json', filePath2: 'file2.json', format: 'plain' }, expected: 'resultPlain.txt' },
+    { input: { filePath1: 'file1.json', filePath2: 'file2.json', format: 'json' }, expected: 'resultJson.txt' },
+    { input: { filePath1: 'file1.yaml', filePath2: 'file2.yml', format: undefined }, expected: 'result.txt' },
+    { input: { filePath1: 'file1.yaml', filePath2: 'file2.yml', format: 'plain' }, expected: 'resultPlain.txt' },
+    { input: { filePath1: 'file1.yaml', filePath2: 'file2.yml', format: 'json' }, expected: 'resultJson.txt' },
+  ])('diff', ({ input, expected }) => {
+    const file1 = getFixturePath(input.filePath1)
+    const file2 = getFixturePath(input.filePath2)
+    const expectedResult = fs.readFileSync(getFixturePath(expected), 'utf-8')
+    const actualLines = difference(file1, file2, input.format)
+    expect(actualLines).toEqual(expectedResult)
+  })
 })
 
 test('нет файла2', () => {
